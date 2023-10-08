@@ -1,0 +1,92 @@
+<!-- This CSS package applies Google styling; it should always be included. -->
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+
+<style>
+    // Specific configs to all the bodies created in the html.
+    body {
+      font-family: "Lucida Sans Typewriter", "Lucida Console";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #222; /* Cor de fundo cinza escuro */
+      color: #fff; /* Cor da fonte branca para legibilidade */
+    }
+
+    // Generic container to store hints, images, buttons and input fields.
+    .container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .image {
+      width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .guess-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .guess-button:hover {
+      background-color: #0056b3;
+    }
+
+    .guess-button:active {
+      background-color: #004080;
+    }
+
+    .feedback-message-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .feedback-message {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .success {
+      background-color: #00FF00;
+      color: #000;
+    }
+
+    .error {
+      background-color: #FF0000;
+      color: #fff;
+    }
+
+    .hint {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #aaa;
+    }
+
+    /* Estilo para a dica de erro */
+    .error-hint {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #aaa;
+      display: none; /* Inicialmente oculto */
+    }
+
+</style>

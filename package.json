@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.73"
+  },
+
+  "scripts": {
+    "login": "clasp login",
+    "logout": "clasp logout",
+    "clone": "clasp clone 1RIrZa2CF4AN_Itq7xrEVvPmQBxxZX-SELSvcatfeNeCHmpOUbw7vAv4Y",
+    "pull": "clasp pull",
+    "push": "clasp push",
+    "open": "clasp open",
+    "deploy": "clasp deploy -i 1RIrZa2CF4AN_Itq7xrEVvPmQBxxZX-SELSvcatfeNeCHmpOUbw7vAv4Y",
+    "undeploy": "clasp undeploy 1RIrZa2CF4AN_Itq7xrEVvPmQBxxZX-SELSvcatfeNeCHmpOUbw7vAv4Y",
+    "list-files": "clasp list",
+    "version-description": "clasp versions -i 1RIrZa2CF4AN_Itq7xrEVvPmQBxxZX-SELSvcatfeNeCHmpOUbw7vAv4Y",
+    "set-root-folder": "clasp set-root 1RIrZa2CF4AN_Itq7xrEVvPmQBxxZX-SELSvcatfeNeCHmpOUbw7vAv4Y"
+  }
+}

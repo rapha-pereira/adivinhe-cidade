@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
+    <?!= HtmlService.createHtmlOutputFromFile('stylesheet').getContent(); ?>
+  </head>
+  <body>
+    <iframe width="850" height="420" frameborder="0"
+      scrolling="no" marginheight="0" marginwidth="0"
+      loading="lazy" src="https://maps.google.com/maps?output=embed">
+    </iframe>
+  </body>
+</html>
