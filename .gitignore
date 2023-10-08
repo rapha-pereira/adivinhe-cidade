@@ -1,6 +1,9 @@
 # Clasp specifics
 *clasp*
 
+# VSCode specifics
+*.code-workspace
+
 # Logs
 logs
 *.log
