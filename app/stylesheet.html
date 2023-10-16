@@ -10,14 +10,15 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #222; /* Cor de fundo cinza escuro */
-    color: #ffffffc9; /* Cor da fonte branca para legibilidade */
+    background-color: #222;
+    color: #ffffffc9;
   }
 
   /* Generic container to store hints, images, buttons and input fields. */
   .container {
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
+    padding: 200px;
   }
 
   .hint, .error-hint {
@@ -38,7 +39,7 @@
     padding: 15px;
     width: 80%;
     box-sizing: border-box;
-    margin-right: 30px; /* Add margin to create space between input and button */
+    margin-right: 30px; /* margin to create space between input and button */
   }
 
   .guess-button {
@@ -47,14 +48,14 @@
     width: 80%;
     color: #fff;
     border: none;
-    border-radius: 10px; /* Adjust this value to control the roundness */
+    border-radius: 10px; /* control the roundness */
     cursor: pointer;
   }
 
   .iframe-container {
-    width: 800px; /* Adjust the width of the iframe as needed */
-    height: 410px; /* Adjust the height of the iframe as needed */
-    margin: 10%; /* Add margin to create space */
+    width: 800px;
+    height: 410px;
+    margin: 0 5%; /* 10% margin between the elements (5% on each side) */
   }
 
   .iframe-container iframe {
@@ -62,10 +63,13 @@
     height: 100%;
   }
 
-  /* #successIcon {
-    padding: 30px;
-    width: 90%;
-    display: none;
-    color: green;
-  } */
+  .made-with-love-positioning {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .heart {
+    color: red;
+  }
 </style>

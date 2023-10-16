@@ -84,9 +84,9 @@
       const guess = lowerCaseStrAndRemoveAccents($('#guessInput').val());
 
       if (guess === cityName) {
-        $('html').fadeOut(1200); // TEMPORARY - 1.2 secs of fadeout
+        $('html').fadeOut(2200); // TEMPORARY - 2.2 secs of fadeout
         getCityObject() // Execute load workflow to get another city. (Basically a "play again" method)
-        $('html').fadeIn(2200); // TEMPORARY - 2.2 secs of fadein to
+        $('html').fadeIn(1200); // TEMPORARY - 1..2 secs of fadein to
         //$("#successIcon").show();
         //$('#guessResult').append('Correto! Você acertou o nome da cidade.');
         //$('#guessResult').addClass('success')
