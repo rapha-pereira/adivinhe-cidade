@@ -1,36 +1,96 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
   /**
-   * Run initializations on web app load.
+   * On document load, assign required handlers to each element,
+   * and attempt to load any saved settings.
    */
   $(function() {
-    // Call the server here to retrieve any information needed to build the page.
-    google.script.run
-       .withSuccessHandler(function(contents) {
-            // Respond to success conditions here.
-            updateDisplay(contents);
-          })
-       .withFailureHandler(function(msg) {
-            // Respond to failure conditions here.
-            $('#main-heading').text(msg);
-            $('#main-heading').addClass("error");
-            $('#error-message').show();
-          })
-       .getFolderContents(folderId);
-  });
+    $(document).ready(function(){
+      // Creating variables to the event listeners.
+      var cityName;
+      // Calling city object creation flow.
+      getCityObject();
+    });
 
-  /**
-   * Updates display of folder contents.
-   *
-   * @param {Object} contents list of content filenames, along with
-   *     the root folder name.
-   */
-  function updateDisplay(contents) {
-    var headingText = "Displaying contents for " + contents.rootName + " folder:";
-    $('#main-heading').text(headingText);
-    for (var i = 0; i < contents.children.length; i++) {
-      var name = contents.children[i];
-      $('#results').append('<div>' + name + '</div>');
+    // Helpers
+    function lowerCaseStrAndRemoveAccents(str) {
+      return str.toLowerCase().normalize('NFD').replace(/\p{Mn}/gu, "")
     }
-  }
+
+    /**
+     * Get IBGE data object from server.
+     */
+    function getCityObject() {
+      google.script.run
+        .withSuccessHandler(function(contents) {
+          // Responding to incoming contents, updating page.
+          loadElementsData(contents)
+        })
+        .withFailureHandler(function(err){
+          console.error("Error: ", e);
+        })
+        .getIBGERandomCityObject();
+    }
+    
+    /**
+     * Main function to load page elemnts based on city object.
+     */
+    function loadElementsData(data) {
+      // Load city name var
+      cityName = getCityName(data)
+
+      // Updating hints
+      updateStateHint(data);
+      updateMicroRegionHint(data)
+
+      // Updating image
+      updateImageUrl(data)
+    }
+
+    function updateStateHint(data) {
+      const hint = data['UF-nome']; // State
+      const hintText = "Dica: Esta cidade está no estado de " + hint;
+      $('#stateHint').html(''); // Clear element if has any text
+      $('#stateHint').html(hintText);
+    }
+
+    function updateMicroRegionHint(data) {
+      const hint = data['mesorregiao-nome']; // Micro Region
+      const hintText = "Dica: Esta cidade está na mesorregião " + hint + " do estado.";
+      $('#microRegionHint').html(''); // Clear element if has any text
+      $('#microRegionHint').html(hintText);
+    }
+
+    function updateImageUrl(data) {
+      const url = `${IBGEApiBaseUrl}${data['municipio-id']}`;
+      $('#cityImage').attr('src', url);
+    }
+
+    function getCityName(data) {
+      const cityName = lowerCaseStrAndRemoveAccents(data['municipio-nome']);
+      return cityName;
+    }
+
+    // Events listeners
+    $('#guessInput').keypress(function(e) {
+      if(e.which == 13) { // Detect Enter key
+        $('#guessButton').click(); // Trigger click on the "Adivinhar" button
+        return false; // Prevent the form from submitting
+      }
+    });
+  
+    $('#guessButton').on("click", function() {
+      console.log(cityName)
+      const guess = lowerCaseStrAndRemoveAccents($('#guessInput').val());
+
+      if (guess === cityName) {
+        $('html').fadeOut(1200); // TEMPORARY - 1.2 secs of fadeout
+        getCityObject() // Execute load workflow to get another city. (Basically a "play again" method)
+        $('html').fadeIn(2200); // TEMPORARY - 2.2 secs of fadein to
+        //$("#successIcon").show();
+        //$('#guessResult').append('Correto! Você acertou o nome da cidade.');
+        //$('#guessResult').addClass('success')
+      }
+    })
+  });
 </script>

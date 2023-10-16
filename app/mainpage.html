@@ -2,36 +2,36 @@
 <html>
   <head>
     <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
-    <?!= HtmlService.createHtmlOutputFromFile('stylesheet').getContent(); ?>
+    <?!= HtmlService.createHtmlOutputFromFile('app/stylesheet').getContent(); ?>
   </head>
   <body>
     <div class="container">
-      <div class="hint" id="hint">Dica: Esta cidade está no estado de <?= cityStateName ?>.</div>
-      <div id="errorHint" class="error-hint">Dica: Esta cidade está na mesorregião <?= cityRegionName ?> do estado.</div>
-      <img src="<?= imageUrl ?>" alt="Image" class="image" loading="lazy">
-      <input type="text" id="guessInput" placeholder="Qual é a cidade?" class="input-field">
-      <button onclick="handleGuess()" class="guess-button">Adivinhar</button>
+      <!-- Hints -->
+      <div class="hint" id="stateHint"></div>
+      <div class="error-hint" id="microRegionHint"></div>
+      <!-- Image element, input and button-->
+      <img id="cityImage" class="image" src="" alt="Image">
+      <input id="guessInput" class="input-field" type="text" placeholder="Qual é a cidade?">
+      <button id="guessButton" class="check-button">Adivinhar</button>
     </div>
 
-    <h1>
-      To read a specific folder's contents, include that folder's ID as
-      a URL parameter: ?folderId=&lt;folder id&gt;. Otherwise the root folder
-      will be read. Up to 20 files may be displayed here, in no particular order.
-      </h1>
-      <h1 id="main-heading">Loading...</h1>
-      <div class="block result-display" id="results">
-        <div class="hidden" id="error-message">
-          Verify that you have permission to access this folder and that the specified folder ID (if any) is correct.
-        </div>
-      </div>
-      <!-- Store data passed to template here, so it is available to the
-       imported JavaScript. -->
-      <script>
-          
-        //var folderId = <?= folderId ?>;
-      </script>
+    <div class="iframe-container">
+      <iframe frameborder="0"
+        scrolling="no" marginheight="0" marginwidth="0"
+        loading="lazy" src="https://maps.google.com/maps?output=embed">
+      </iframe>
+    </div>
 
-      
+    <!-- Store data passed to template here, so it is available to the
+      imported JavaScript. -->
+    <script>
+      var IBGEApiBaseUrl = "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/";
+    </script>
+
+    <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+    <?!= HtmlService.createHtmlOutputFromFile('app/javascript').getContent(); ?>
   </body>
 </html>
