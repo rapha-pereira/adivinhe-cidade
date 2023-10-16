@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
+    <?!= HtmlService.createHtmlOutputFromFile('app/stylesheet').getContent(); ?>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hints -->
+      <div class="hint" id="stateHint"></div>
+      <div class="error-hint" id="microRegionHint"></div>
+      <!-- Image element, input and button-->
+      <img id="cityImage" class="image" src="" alt="Image">
+      <input id="guessInput" class="input-field" type="text" placeholder="Qual é a cidade?">
+      <button id="guessButton" class="check-button">Adivinhar</button>
+    </div>
+
+    <div class="iframe-container">
+      <iframe frameborder="0"
+        scrolling="no" marginheight="0" marginwidth="0"
+        loading="lazy" src="https://maps.google.com/maps?output=embed">
+      </iframe>
+    </div>
+
+    <!-- Store data passed to template here, so it is available to the
+      imported JavaScript. -->
+    <script>
+      var IBGEApiBaseUrl = "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/";
+    </script>
+
+    <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+    <?!= HtmlService.createHtmlOutputFromFile('app/javascript').getContent(); ?>
+  </body>
+</html>
