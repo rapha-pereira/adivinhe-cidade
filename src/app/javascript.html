@@ -6,11 +6,84 @@
    */
   $(function() {
     $(document).ready(function(){
-      // Creating variables to the event listeners.
-      var cityName;
-      // Calling city object creation flow.
-      getCityObject();
+      google.script.run.withSuccessHandler(function(data) {
+        // Creating variables to the event listeners.
+        var cityName;
+        var selectedState;
+        var ibgeData = data;
+
+        introWallLoad(data);
+
+        // Events listeners
+        $('#dropdown-list').on('change', function() {
+          // Get the selected value
+          selectedState = $(this).val();
+          console.log("selected uf: " + selectedState)
+
+          // Get introwall to proceed with its animation
+          const introWall = document.querySelector(".intro-wall");
+          
+          // Filter ibge data to get only the cities in the state that the user selected.
+          const stateObj = ibgeData.filter(obj => obj["UF-sigla"] === selectedState);
+
+          // Call handlers and loaders
+          getCityObject(stateObj)
+
+          // Trigger the animation to move the wall up and disappear
+          introWall.style.animationPlayState = "running";
+          
+          // Hide the intro wall and reveal the other elements
+          setTimeout(() => {
+              introWall.style.display = "none";
+          }, 3000); // Adjust the duration to match your animation
+        });
+
+        $('#guessInput').keypress(function(e) {
+          if(e.which == 13) { // Detect Enter key
+            $('#guessButton').click(); // Trigger click on the "Adivinhar" button
+            return false; // Prevent the form from submitting
+          }
+        });
+      
+        $('#guessButton').on("click", function() {
+          console.log(cityName)
+          const guess = lowerCaseStrAndRemoveAccents($('#guessInput').val());
+
+          if (guess === cityName) {
+            $('html').fadeOut(2200); // TEMPORARY - 2.2 secs of fadeout
+            getCityObject(selectedState) // Execute load workflow to get another city. (Basically a "play again" method)
+            $('html').fadeIn(1200); // TEMPORARY - 1..2 secs of fadein to
+            //$("#successIcon").show();
+            //$('#guessResult').append('Correto! Você acertou o nome da cidade.');
+            //$('#guessResult').addClass('success')
+          }
+        })
+      }).getIBGECitiesData();
     });
+
+    // Start point of our JS; Intro Wall function
+    function introWallLoad(data) {
+      // Pull introwall elements
+      const dropdown = document.getElementById("dropdown-list");
+
+      // Extract unique UF-siglas using a Set
+      const ufsSet = new Set();
+
+      data.forEach(cityData => {
+        ufsSet.add(cityData["UF-sigla"]);
+      });
+
+      // Convert the Set to an array and sort it
+      const ufs = Array.from(ufsSet).sort();
+
+      // Populate the dropdown list with the ufs
+      ufs.forEach(uf => {
+        const option = document.createElement("option");
+        option.value = uf;
+        option.text = uf;
+        dropdown.appendChild(option);
+      });
+    }
 
     // Helpers
     function lowerCaseStrAndRemoveAccents(str) {
@@ -20,7 +93,7 @@
     /**
      * Get IBGE data object from server.
      */
-    function getCityObject() {
+    function getCityObject(stateObj) {
       google.script.run
         .withSuccessHandler(function(contents) {
           // Responding to incoming contents, updating page.
@@ -29,7 +102,7 @@
         .withFailureHandler(function(err){
           console.error("Error: ", e);
         })
-        .getIBGERandomCityObject();
+        .getIBGERandomCityObject(stateObj);
     }
     
     /**
@@ -70,27 +143,5 @@
       const cityName = lowerCaseStrAndRemoveAccents(data['municipio-nome']);
       return cityName;
     }
-
-    // Events listeners
-    $('#guessInput').keypress(function(e) {
-      if(e.which == 13) { // Detect Enter key
-        $('#guessButton').click(); // Trigger click on the "Adivinhar" button
-        return false; // Prevent the form from submitting
-      }
-    });
-  
-    $('#guessButton').on("click", function() {
-      console.log(cityName)
-      const guess = lowerCaseStrAndRemoveAccents($('#guessInput').val());
-
-      if (guess === cityName) {
-        $('html').fadeOut(2200); // TEMPORARY - 2.2 secs of fadeout
-        getCityObject() // Execute load workflow to get another city. (Basically a "play again" method)
-        $('html').fadeIn(1200); // TEMPORARY - 1..2 secs of fadein to
-        //$("#successIcon").show();
-        //$('#guessResult').append('Correto! Você acertou o nome da cidade.');
-        //$('#guessResult').addClass('success')
-      }
-    })
   });
 </script>

@@ -1,25 +1,19 @@
 // Constants
 const IBGE_SPREADSHEET_ID = "1dcri2Nj4FIdmL-bX94eNYygMdzHuriLRpDfL4wcRDHU";
 
-// Retrieve IBGE data
-let ibgeData;
-
 function getIBGECitiesData() {
-  if (!ibgeData) {
-    const spreadsheet = SpreadsheetApp.openById(IBGE_SPREADSHEET_ID);
-    const sheet = spreadsheet.getActiveSheet();
-    const ibgeRawData = sheet.getRange("A1:CY1").getValues();
-    ibgeData = JSON.parse(ibgeRawData[0].join(''));
-  }
+  const spreadsheet = SpreadsheetApp.openById(IBGE_SPREADSHEET_ID);
+  const sheet = spreadsheet.getActiveSheet();
+  const ibgeRawData = sheet.getRange("A1:CY1").getValues();
+  const ibgeData = JSON.parse(ibgeRawData[0].join(''));
+
   return ibgeData;
 }
 
-function getIBGERandomCityObject() {
-  const data = getIBGECitiesData();
-  const filteredData = data.filter((obj) => obj["UF-sigla"] == "SC")
-  const randomIndex = Math.floor(Math.random() * filteredData.length);
+function getIBGERandomCityObject(stateObj) {
+  const randomIndex = Math.floor(Math.random() * stateObj.length);
 
-  return filteredData[randomIndex];
+  return stateObj[randomIndex];
 }
 
 // Main
