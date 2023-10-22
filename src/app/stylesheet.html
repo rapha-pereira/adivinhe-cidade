@@ -1,0 +1,114 @@
+<!-- This CSS package applies Google styling; it should always be included. -->
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+
+<style>
+  /* Specific configs to all the bodies created in the html. */
+  body {
+    font-family: "Lucida Sans Typewriter", "Lucida Console";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #222;
+    color: #ffffffc9;
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+  }
+
+  /* Generic container to store hints, images, buttons and input fields. */
+  .container {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 200px;
+  }
+
+  .hint, .error-hint {
+    margin-bottom: 10px;
+    color: #e6e6e6;
+  }
+
+  .image {
+    max-width: 100%;
+    width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+
+  .input-field {
+    padding: 15px;
+    width: 80%;
+    box-sizing: border-box;
+    margin-right: 30px; /* margin to create space between input and button */
+  }
+
+  .guess-button {
+    display: flex;
+    padding: 15px;
+    width: 80%;
+    color: #fff;
+    border: none;
+    border-radius: 10px; /* control the roundness */
+    cursor: pointer;
+  }
+
+  .iframe-container {
+    width: 800px;
+    height: 410px;
+    margin: 0 5%; /* 10% margin between the elements (5% on each side) */
+  }
+
+  .iframe-container iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .made-with-love-positioning {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .heart {
+    color: red;
+  }
+
+  .intro-wall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+    animation: moveUp 5s paused forwards;
+  }
+
+  @keyframes moveUp {
+      0% {
+          transform: translateY(0);
+          opacity: 1;
+      }
+      100% {
+          transform: translateY(-100%); /* Move the wall above the viewport */
+          opacity: 0; /* Make it disappear */
+      }
+  }
+
+  .center-box {
+    text-align: center;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the box relative to its own dimensions */
+    background-color: #062438; /* Background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Spacing around content */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+  }
+
+</style>
