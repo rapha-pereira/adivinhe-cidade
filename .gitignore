@@ -4,6 +4,9 @@
 # VSCode specifics
 *.code-workspace
 
+# Debug file
+debug*
+
 # Logs
 logs
 *.log
